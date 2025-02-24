@@ -1,0 +1,10 @@
+{% extends 'ledger/base.html' %}
+{% load static %}
+{% block title %}Recipe List{% endblock %}
+{% block content %}
+	<ul>
+	{% for recipe in recipes %}
+	<li>{{ recipe.name }}</li>
+	{% endfor %}
+    </ul>
+{% endblock %}
