@@ -18,7 +18,7 @@ def recipes_list(request):
     }
     return render(request, 'ledger/recipes_list.html', ctx)
 
-def recipe_with_param(request, num:int =1):
+def recipe_detail(request, num:int =1):
     recipe_1 = {
         "name": "Recipe 1",
         "ingredients": [
