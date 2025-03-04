@@ -85,4 +85,4 @@ def recipe_detail(request, num:int =1):
     if num == 2:
         ctx = recipe_2
 
-    return render(request, 'ledger/recipe.html', ctx)
+    return render(request, 'ledger/recipe_detail.html', ctx)
