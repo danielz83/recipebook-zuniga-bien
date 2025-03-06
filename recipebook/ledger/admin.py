@@ -9,6 +9,7 @@ class RecipeIngredientInline(admin.TabularInline):
 
 class RecipeAdmin(admin.ModelAdmin):
     model = Recipe
+    search_fields = ("name",)
     list_display = ("id","name",)
     list_filter = ("name",)
 
@@ -18,7 +19,7 @@ class RecipeAdmin(admin.ModelAdmin):
 
 class IngredientAdmin(admin.ModelAdmin):
     model = Ingredient
-
+    search_fields = ("name",)
     list_display = ("id","name",)
     list_filter = ("name",)
     inlines = [
@@ -27,7 +28,6 @@ class IngredientAdmin(admin.ModelAdmin):
 
 class RecipeIngredientAdmin(admin.ModelAdmin):
     model = RecipeIngredient
-
     list_display = ("quantity","ingredient","recipe",)
     list_filter = ("recipe","ingredient",)
 
