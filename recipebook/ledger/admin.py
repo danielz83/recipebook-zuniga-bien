@@ -3,16 +3,27 @@ from .models import Recipe, Ingredient, RecipeIngredient
 
 # Register your models here.
 
+class RecipeIngredientInline(admin.TabularInline):
+    model = RecipeIngredient
+    fields = ['ingredient','recipe','quantity']
+
 class RecipeAdmin(admin.ModelAdmin):
     model = Recipe
     list_display = ("id","name",)
     list_filter = ("name",)
+
+    inlines = [
+            RecipeIngredientInline,
+            ]
 
 class IngredientAdmin(admin.ModelAdmin):
     model = Ingredient
 
     list_display = ("id","name",)
     list_filter = ("name",)
+    inlines = [
+            RecipeIngredientInline,
+            ]
 
 class RecipeIngredientAdmin(admin.ModelAdmin):
     model = RecipeIngredient
