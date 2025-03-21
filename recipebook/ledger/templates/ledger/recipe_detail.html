@@ -3,6 +3,7 @@
 {% block title %} {{name}}{% endblock %}
 {% block content %}
 <h2> {{object.name}}</h2>
+{{object.author}}
 <h3> Ingredients: </h3>
 	<ul>
         {% for ingredient in object.ingredients.all %}
