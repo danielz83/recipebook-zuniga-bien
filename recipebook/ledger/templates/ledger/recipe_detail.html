@@ -1,12 +1,12 @@
-{% extends 'ledger/base.html' %}
-{% load static %}
-{% block title %} {{name}}{% endblock %}
+{% extends 'base.html' %}
+{% block title %} {{object.name}} {% endblock %}
+{% block heading %} {{object.name}} {% endblock %}
 {% block content %}
-<h2> {{object.name}}</h2>
-<h3> Ingredients: </h3>
-	<ul>
-        {% for ingredient in object.ingredients.all %}
-		<li>{{ ingredient.ingredient.name }} ({{ingredient.quantity}})</li>
-		{% endfor %}
-    </ul>
+    <p class="fw-light">Author: {{object.author}}</p>
+    <p class="fw-bold"> Ingredients:</p>
+    <div class="list-group list-group-flush">
+       {% for ingredient in object.ingredients.all %}
+       <p class="list-group-item">{{ ingredient.ingredient.name }} ({{ingredient.quantity}})</p>
+       {% endfor %}
+    </div>
 {% endblock %}
