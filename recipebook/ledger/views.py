@@ -9,7 +9,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
 class RecipeListView(LoginRequiredMixin, ListView):
-    model = Recipe
+    def get_queryset(self):
+        return Recipe.objects.filter(author__user=self.request.user)
     template_name = 'ledger/recipes_list.html'
 
 class RecipeDetailView(LoginRequiredMixin, DetailView):
