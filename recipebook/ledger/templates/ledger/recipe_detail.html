@@ -2,11 +2,27 @@
 {% block title %} {{object.name}} {% endblock %}
 {% block heading %} {{object.name}} {% endblock %}
 {% block content %}
-    <p class="fw-light">Author: {{object.author}}</p>
-    <p class="fw-bold"> Ingredients:</p>
-    <div class="list-group list-group-flush">
+<section class="container">
+<p class="text-center fw-light">Author: {{object.author}}</p>
+    <h2 class=""> Ingredients</h2>
+    <div class="list-group">
        {% for ingredient in object.ingredients.all %}
-       <p class="list-group-item">{{ ingredient.ingredient.name }} ({{ingredient.quantity}})</p>
+        <div class="list-group-item w-100 justify-content-between align-items-center border border-0">
+            <span class="badge bg-primary rounded-pill">{{ingredient.quantity}}</span>
+            {{ ingredient.ingredient.name }}
+        </div>
        {% endfor %}
     </div>
+</section>
+<section class="container">
+    <h2 class=""> Images</h2>
+    <a class="btn btn-primary m-3" href="{% url 'recipe_add_image' pk=object.pk%}">+ Add Image</a>
+
+    <div class="">
+    {% for image in object.images.all %}
+    <img src="{{image.image.url}}" class="img-thumbnail w-25 p-3" alt="{{image.description}}">
+    {% endfor %}
+    </div>
+</section>
+<a class="btn btn-secondary m-3" href="{% url 'recipes_list'%}">Back to Recipes List</a>
 {% endblock %}
