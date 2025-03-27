@@ -19,7 +19,7 @@ class Ingredient(models.Model):
 
 class Recipe(models.Model):
     name = models.CharField(max_length=50)
-    author = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL)
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
@@ -41,3 +41,9 @@ class RecipeIngredient(models.Model):
     class Meta:
         ordering = ['ingredient']
         unique_together = [['ingredient','recipe']]
+
+class RecipeImage(models.Model):
+    image = models.ImageField(upload_to="recipe_images/", null=False)
+    description = models.CharField(max_length=255)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name="images")
+
