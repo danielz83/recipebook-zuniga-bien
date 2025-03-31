@@ -5,20 +5,7 @@
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-
-<!--
-    <h3>Ingredients</h3>
-    <table>
-      {{ formset.management_form }}
-      {% for form in formset %}
-        <tr>
-          <td>{{ form.as_p }}</td>
-        </tr>
-      {% endfor %}
-    </table>
--->
-
-    <button class="btn btn-primary" type="submit">Save</button>
-    <a class="btn btn-secondary" href="{% url 'recipes_list' %}">Cancel</a>
+    <button class="btn btn-success" type="submit">Save</button>
+    <a class="btn btn-secondary" href="{% url 'recipe_add' %}">Cancel</a>
   </form>
 {% endblock %}

@@ -6,10 +6,11 @@
     {% csrf_token %}
     {{ form.as_p }}
     <p class="fw-bold"> Ingredients:</p>
-    <div class="m-3">
-        {{ recipe_ingredient_form.as_table }}
+    <div class="my-3">
+        {{ recipe_ingredient_form.as_p }}
+	<a class="btn btn-primary add" href="{% url 'recipe_add_ingredient' %}">Define New Ingredient</a>
     </div>
-    <button class="btn btn-primary" type="submit">Save</button>
+    <button class="btn btn-success" type="submit">Save</button>
     <a class="btn btn-secondary" href="{% url 'recipes_list' %}">Cancel</a>
 </form>
 {% endblock %}
