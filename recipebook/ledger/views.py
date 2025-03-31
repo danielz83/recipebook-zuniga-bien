@@ -60,4 +60,4 @@ class RecipeAddIngredientView(LoginRequiredMixin, CreateView):
     template_name = 'ledger/recipe_add_ingredient.html'
 
     def get_success_url(self):
-        return ''
+        return reverse("recipe_add")
