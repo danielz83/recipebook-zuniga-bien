@@ -16,7 +16,7 @@
 </section>
 <section class="container">
     <h2 class=""> Images</h2>
-    <a class="btn btn-primary m-3" href="{% url 'recipe_add_image' pk=object.pk%}">+ Add Image</a>
+    <a class="btn btn-primary m-3 add" href="{% url 'recipe_add_image' pk=object.pk%}">Add Image</a>
 
     <div class="">
     {% for image in object.images.all %}
