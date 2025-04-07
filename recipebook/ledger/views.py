@@ -1,9 +1,10 @@
-from django.urls import reverse
+from django.shortcuts import redirect
+from django.urls import reverse, reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Recipe, Ingredient, RecipeImage
+from .models import Recipe, Ingredient, RecipeImage, RecipeIngredient
 from .forms import RecipeForm, RecipeIngredientForm, IngredientForm
 
 # Create your views here.
@@ -19,25 +20,31 @@ class RecipeDetailView(LoginRequiredMixin, DetailView):
 class RecipeAddView(LoginRequiredMixin, CreateView):
     form_class = RecipeForm
     template_name = 'ledger/recipe_add.html'
-    recipe_ingredients = []
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        recipe_ingredient_form = RecipeIngredientForm()
-        ctx['recipe_ingredient_form'] = recipe_ingredient_form
+        ctx['recipe_ingredient_form'] = RecipeIngredientForm()
+        ctx['ingredient_form'] = IngredientForm()
         return ctx
 
     def form_valid(self, form):
         form.instance.author = self.request.user.profile
-        recipe = form.save(commit=False)
-        recipe_ingredient_form = RecipeIngredientForm(self.request.POST)
-        recipe_ingredient = recipe_ingredient_form.save(commit=False)
-        recipe_ingredient.recipe = recipe
-        recipe.save()
-        recipe_ingredient.save()
         return super().form_valid(form)
 
-class RecipeAddImageView(LoginRequiredMixin, CreateView):
+class IngredientAddView(LoginRequiredMixin, CreateView):
+    model = Ingredient
+    form_class = IngredientForm
+    template_name = 'ledger/recipe_add.html'
+
+    def get_success_url(self):
+        return reverse("recipes_list")
+
+class RecipeIngredientAddView(LoginRequiredMixin, CreateView):
+    model = RecipeIngredient
+    form_class = RecipeIngredientForm
+    template_name = 'ledger/recipe_add.html'
+
+class RecipeImageAddView(LoginRequiredMixin, CreateView):
     model = RecipeImage
     fields = ["image","description"]
     template_name = 'ledger/recipe_add_image.html'
@@ -54,10 +61,21 @@ class RecipeAddImageView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse("recipe_detail", kwargs={"pk": self.kwargs["pk"]})
 
-class RecipeAddIngredientView(LoginRequiredMixin, CreateView):
-    model = Ingredient
-    fields = '__all__'
-    template_name = 'ledger/recipe_add_ingredient.html'
+
+class RecipeImageAddView(LoginRequiredMixin, CreateView):
+    model = RecipeImage
+    fields = ["image","description"]
+    template_name = 'ledger/recipe_add_image.html'
+
+    def form_valid(self, form):
+        form.instance.recipe_id = self.kwargs["pk"]
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx["recipe"] = Recipe.objects.get(pk=self.kwargs["pk"])
+        return ctx
 
     def get_success_url(self):
-        return reverse("recipe_add")
+        return reverse("recipe_detail", kwargs={"pk": self.kwargs["pk"]})
+
