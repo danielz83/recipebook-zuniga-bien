@@ -1,16 +1,46 @@
 {% extends 'base.html' %}
-{% block title %} Add New Recipe {% endblock %}
-{% block heading %} Add New Recipe {% endblock %}
+{% block title %} Add New Stuff {% endblock %}
+{% block heading %} Add New Stuff  {% endblock %}
 {% block content %}
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <p class="fw-bold"> Ingredients:</p>
-    <div class="my-3">
-        {{ recipe_ingredient_form.as_p }}
-	<a class="btn btn-primary add" href="{% url 'recipe_add_ingredient' %}">Define New Ingredient</a>
+<a class="btn btn-secondary mb-3" href="{% url 'recipes_list' %}">Back to Recipes List</a>
+
+<div class="card mb-3">
+    <div class="card-header">
+        <h2>Define a new recipe</h2>
     </div>
-    <button class="btn btn-success" type="submit">Save</button>
-    <a class="btn btn-secondary" href="{% url 'recipes_list' %}">Cancel</a>
-</form>
+    <div class="card-body">
+        <form method="post" action="{% url 'recipe_add' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+<div class="card mb-3">
+    <div class="card-header">
+        <h2>Add a new ingredient to a recipe</h2>
+    </div>
+    <div class="card-body">
+        <form method="post" action="{% url 'recipe_add_recipe_ingredient' %}">
+            {% csrf_token %}
+                {{ recipe_ingredient_form.as_p }}
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+<div class="card mb-3">
+    <div class="card-header">
+        <h2>Define a new ingredient</h2>
+    </div>
+    <div class="card-body">
+        <form method="post" action="{% url 'recipe_add_ingredient' %}">
+            {% csrf_token %}
+            {{ ingredient_form.as_p }}
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
 {% endblock %}
