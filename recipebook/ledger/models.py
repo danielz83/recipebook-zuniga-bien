@@ -42,6 +42,9 @@ class RecipeIngredient(models.Model):
         ordering = ['ingredient']
         unique_together = [['ingredient','recipe']]
 
+    def get_absolute_url(self):
+        return reverse('recipe_detail', args = [str(self.recipe.id)])
+
 class RecipeImage(models.Model):
     image = models.ImageField(upload_to="recipe_images/", null=False)
     description = models.CharField(max_length=255)
