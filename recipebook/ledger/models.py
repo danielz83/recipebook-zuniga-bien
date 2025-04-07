@@ -2,8 +2,6 @@ from django.db import models
 from django.urls import reverse
 from accounts.models import Profile
 
-# Create your models here.
-
 class Ingredient(models.Model):
     name = models.CharField(max_length=50)
 
@@ -42,8 +40,10 @@ class RecipeIngredient(models.Model):
         ordering = ['ingredient']
         unique_together = [['ingredient','recipe']]
 
+    def get_absolute_url(self):
+        return reverse('recipe_detail', args = [str(self.recipe.id)])
+
 class RecipeImage(models.Model):
     image = models.ImageField(upload_to="recipe_images/", null=False)
     description = models.CharField(max_length=255)
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name="images")
-

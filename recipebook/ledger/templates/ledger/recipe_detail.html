@@ -3,7 +3,7 @@
 {% block heading %} {{object.name}} {% endblock %}
 {% block content %}
 <section class="container">
-<p class="text-center fw-light">Author: {{object.author}}</p>
+    <p class="text-center fw-light">Author: {{object.author}}</p>
     <h2 class=""> Ingredients</h2>
     <div class="list-group">
        {% for ingredient in object.ingredients.all %}
@@ -16,11 +16,10 @@
 </section>
 <section class="container">
     <h2 class=""> Images</h2>
-    <a class="btn btn-primary m-3" href="{% url 'recipe_add_image' pk=object.pk%}">+ Add Image</a>
-
+    <a class="btn btn-primary m-3 add" href="{% url 'recipe_add_image' pk=object.pk%}">Add Image</a>
     <div class="">
-    {% for image in object.images.all %}
-    <img src="{{image.image.url}}" class="img-thumbnail w-25 p-3" alt="{{image.description}}">
+        {% for image in object.images.all %}
+        <img src="{{image.image.url}}" class="img-thumbnail w-25 p-3" alt="{{image.description}}">
     {% endfor %}
     </div>
 </section>
