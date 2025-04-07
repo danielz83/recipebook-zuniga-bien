@@ -2,8 +2,6 @@ from django.db import models
 from django.urls import reverse
 from accounts.models import Profile
 
-# Create your models here.
-
 class Ingredient(models.Model):
     name = models.CharField(max_length=50)
 

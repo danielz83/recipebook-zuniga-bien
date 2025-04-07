@@ -7,8 +7,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Recipe, Ingredient, RecipeImage, RecipeIngredient
 from .forms import RecipeForm, RecipeIngredientForm, IngredientForm
 
-# Create your views here.
-
 class RecipeListView(LoginRequiredMixin, ListView):
     model = Recipe
     template_name = 'ledger/recipes_list.html'
